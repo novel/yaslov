@@ -5,7 +5,7 @@ except ImportError:
 
 setup(
         name = "yaslov",
-        version = "0.1",
+        version = "0.2",
         description="CLI client for slovari.yandex.ru",
         author = "Roman Bogorodskiy",
         author_email = "bogorodskiy@gmail.com",
