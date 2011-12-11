@@ -9,6 +9,7 @@ import urllib
 
 system_encoding = locale.getpreferredencoding()
 
+
 def translate(part):
     conn = httplib.HTTPConnection("suggest-slovari.yandex.ru")
     params = urllib.urlencode({"v": "2", "lang": "", "part": part})
@@ -17,6 +18,7 @@ def translate(part):
     resp = conn.getresponse()
 
     return json.loads(resp.read())[1]
+
 
 def usage(prog):
     print "%s <term>\n" % prog
