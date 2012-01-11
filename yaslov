@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import argparse
 import httplib
 import json
 import locale
@@ -19,26 +20,37 @@ def translate(part):
     conn.request("GET", "/suggest-lingvo?" + params)
     resp = conn.getresponse()
 
-    return json.loads(resp.read())[1]
+    return '\n'.join([translation
+        for translation in json.loads(resp.read())[1]])
 
+def get_argparser():
+    parser = argparse.ArgumentParser(
+            description='CLI client for slovari.yandex.ru',
+            epilog='send bug reports to: bogorodskiy@gmail.com')
+    parser.add_argument('-n', dest='use_cache', 
+            default=True, action='store_false',
+            help="do not use cache")
+    parser.add_argument('term', 
+            help='a term to translate')
 
-def usage(prog):
-    print "%s <term>\n" % prog
+    return parser
+
 
 if __name__ == "__main__":
-    cache = Cache()
+    args = get_argparser().parse_args()
 
-    try:
-        term = sys.argv[1]
-    except IndexError:
-        usage(sys.argv[0])
-        sys.exit(1)
+    term = args.term
 
-    output = cache.find(term)
-    if not output:
-        output = '\n'.join([translation 
-            for translation in translate(term)])
-        cache.add(term, output)
+    if args.use_cache:
+        cache = Cache()
+        output = cache.find(term)
 
-    cache.update(term)
+        if not output:
+            output = translate(term)
+            cache.add(term, output)
+
+        cache.update(term)
+    else:
+        output = translate(term)
+    
     print output.encode(system_encoding)
