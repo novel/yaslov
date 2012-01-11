@@ -4,6 +4,7 @@ import sqlite3 as db
 
 from xdg import BaseDirectory
 
+
 class Cache(object):
 
     def __init__(self):
@@ -15,7 +16,7 @@ class Cache(object):
         it doesn't"""
         self._cache_dir = os.path.join(BaseDirectory.xdg_cache_home,
                 "yaslov")
-        
+
         if not os.path.isdir(self._cache_dir):
             os.makedirs(self._cache_dir, 0700)
         
