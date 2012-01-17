@@ -19,7 +19,7 @@ class TestCache(object):
         mock_os_path.isdir.return_value = False
 
         cache = Cache()
-        
+
         cache_path = cache._init_paths()
 
         assert_equal(cache_path, fake_dirname)
@@ -40,7 +40,7 @@ class TestCache(object):
         mock_os_path.isdir.return_value = True
 
         cache = Cache()
-        
+
         cache_path = cache._init_paths()
 
         assert_equal(cache_path, fake_dirname)
@@ -65,7 +65,7 @@ class TestCache(object):
         mock_cache_init_paths.return_value = ":memory:"
 
         cache = Cache()
-        
+
         request = "request"
         response = "sample response"
         cache.add(request, response)
@@ -81,7 +81,7 @@ class TestCache(object):
         mock_cache_init_paths.return_value = ":memory:"
 
         cache = Cache()
-        assert_equals(cache.find("nonexist"), None)        
+        assert_equals(cache.find("nonexist"), None)
 
     @patch.object(Cache, '_init_paths')
     def test_update(self, mock_cache_init_paths):
@@ -95,7 +95,7 @@ class TestCache(object):
         for _ in range(0, 5):
             cache.update(request)
 
-        cache._cur.execute("""SELECT t.timestamp FROM timestamp as t 
+        cache._cur.execute("""SELECT t.timestamp FROM timestamp as t
             JOIN requests as r ON t.request_id = r.id
             WHERE r.request=?""", (request,))
         assert_equals(len(cache._cur.fetchall()), 5)
