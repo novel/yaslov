@@ -49,6 +49,9 @@ if __name__ == "__main__":
 
         if not output:
             output = translate(term)
+            if 0 == len(output):
+                print "No translations found."
+                sys.exit(1)
             cache.add(term, output)
 
         cache.update(term)
