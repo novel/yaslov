@@ -15,7 +15,8 @@ system_encoding = locale.getpreferredencoding()
 
 def translate(part):
     conn = httplib.HTTPConnection("suggest-slovari.yandex.ru")
-    params = urllib.urlencode({"v": "2", "lang": "", "part": part})
+    params = urllib.urlencode({"v": "2", "lang": "",
+        "part": part.encode("utf-8")})
 
     conn.request("GET", "/suggest-lingvo?" + params)
     resp = conn.getresponse()
@@ -40,7 +41,7 @@ def get_argparser():
 if __name__ == "__main__":
     args = get_argparser().parse_args()
 
-    term = " ".join(args.term)
+    term = " ".join(args.term).decode(system_encoding)
 
     if args.use_cache:
         cache = Cache()
