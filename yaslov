@@ -23,14 +23,15 @@ def translate(part):
     return '\n'.join([translation
         for translation in json.loads(resp.read())[1]])
 
+
 def get_argparser():
     parser = argparse.ArgumentParser(
             description='CLI client for slovari.yandex.ru',
             epilog='send bug reports to: bogorodskiy@gmail.com')
-    parser.add_argument('-n', dest='use_cache', 
+    parser.add_argument('-n', dest='use_cache',
             default=True, action='store_false',
             help="do not use cache")
-    parser.add_argument('term', nargs='+', 
+    parser.add_argument('term', nargs='+',
             help='a term to translate')
 
     return parser
@@ -52,5 +53,5 @@ if __name__ == "__main__":
         cache.update(term)
     else:
         output = translate(term)
-    
+
     print output.encode(system_encoding)

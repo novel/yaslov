@@ -19,7 +19,7 @@ class Cache(object):
 
         if not os.path.isdir(self._cache_dir):
             os.makedirs(self._cache_dir, 0700)
-        
+
         return os.path.join(self._cache_dir, "cache.db")
 
     def _init_db(self, cache_file):
@@ -62,7 +62,7 @@ class Cache(object):
         self._cur.execute("SELECT id FROM requests WHERE request=?",
                 (request,))
         _id = self._cur.fetchone()[0]
-        
+
         self._cur.execute("""INSERT INTO timestamp(request_id, timestamp)
             VALUES(?, strftime('%s','now'))""", (_id,))
         self._conn.commit()
