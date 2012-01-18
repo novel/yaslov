@@ -9,6 +9,7 @@ import sys
 import urllib
 
 from yasl.cache import Cache
+from yasl.utils import htmlunescape
 
 system_encoding = locale.getpreferredencoding()
 
@@ -21,8 +22,8 @@ def translate(part):
     conn.request("GET", "/suggest-lingvo?" + params)
     resp = conn.getresponse()
 
-    return '\n'.join([translation
-        for translation in json.loads(resp.read())[1]])
+    return htmlunescape('\n'.join([translation
+        for translation in json.loads(resp.read())[1]]))
 
 
 def get_argparser():
