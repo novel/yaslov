@@ -15,12 +15,12 @@ $
 
 You'll need a config file with the API key configure. A minimal config file looks like this:
 
----
+```
 $ cat ~/.config/.yaslov.conf 
 [api]
 key = YourAPIKey
 $
----
+```
 
 You can obtain an API key [here](https://tech.yandex.ru/keys/get/?service=dict).
 
