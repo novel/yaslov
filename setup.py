@@ -2,8 +2,8 @@ from distutils.core import setup
 
 setup(
         name="yaslov",
-        version="0.3",
-        description="CLI client for slovari.yandex.ru",
+        version="0.4",
+        description="CLI client for https://tech.yandex.ru/dictionary/",
         author="Roman Bogorodskiy",
         author_email="bogorodskiy@gmail.com",
         packages=['yasl'],
