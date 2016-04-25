@@ -1,3 +1,5 @@
+import yasl.utils
+
 import os
 import os.path
 import sqlite3 as db
@@ -14,8 +16,7 @@ class Cache(object):
     def _init_paths(self):
         """Checks if the cache exists, create it if
         it doesn't"""
-        self._cache_dir = os.path.join(BaseDirectory.xdg_cache_home,
-                "yaslov")
+        self._cache_dir = yasl.utils.cache_dir()
 
         if not os.path.isdir(self._cache_dir):
             os.makedirs(self._cache_dir, 0700)
@@ -47,7 +48,7 @@ class Cache(object):
 
     def find(self, request):
         self._cur.execute("SELECT response FROM requests WHERE request=?",
-                (request,))
+                          (request,))
         try:
             return self._cur.fetchone()[0]
         except TypeError:
@@ -60,7 +61,7 @@ class Cache(object):
 
     def update(self, request):
         self._cur.execute("SELECT id FROM requests WHERE request=?",
-                (request,))
+                          (request,))
         _id = self._cur.fetchone()[0]
 
         self._cur.execute("""INSERT INTO timestamp(request_id, timestamp)
