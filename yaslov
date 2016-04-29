@@ -14,20 +14,6 @@ import yasl.utils
 
 system_encoding = locale.getpreferredencoding()
 
-def translate(part):
-    conn = httplib.HTTPSConnection("dictionary.yandex.net")
-    params = urllib.urlencode({"key": key, "format": "plain",
-        "lang": "en-ru", "text": part.encode("utf-8")})
-
-    conn.request("GET", "/api/v1/dicservice.json/lookup?" + params)
-    resp = conn.getresponse()
-
-    resp_decoded = json.loads(resp.read())
-
-    print resp_decoded
-
-    return "%s: %s" % (part, resp_decoded["text"][0])
-
 
 def get_argparser():
     parser = argparse.ArgumentParser(
