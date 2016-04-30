@@ -19,6 +19,9 @@ def get_argparser():
     parser = argparse.ArgumentParser(
             description='CLI client for slovari.yandex.ru',
             epilog='send bug reports to: bogorodskiy@gmail.com')
+    parser.add_argument('-G', dest='color',
+                        default=False, action='store_true',
+                        help="enable colors")
     parser.add_argument('-c', dest='config_file')
     parser.add_argument('-l', dest='lang',
             help='translation direction, for example "en-ru"'),
@@ -76,5 +79,7 @@ if __name__ == "__main__":
         cache.update(term)
     else:
         output = yadict.lookup(term)
-    output = output.replace(term, termcolor.colored(term, 'red'))
+
+    if args.color or conf.color:
+        output = output.replace(term, termcolor.colored(term, 'red'))
     print output.encode(system_encoding)

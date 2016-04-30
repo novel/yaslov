@@ -3,3 +3,6 @@ key = your_api_key
 
 [translation]
 default_lang = en-ru
+
+[cli]
+color = yes
